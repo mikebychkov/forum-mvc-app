@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>Users</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+    <div class="container">
+        <h3>Users</h3>
+    </div>
+
+    <hr>
+
+    <div class="container pb-1">
+        <table width="100%">
+            <tr>
+                <td align="left">
+                    <div sec:authorize="hasRole('ADMIN')">
+                        <a th:href="@{/users/edit(id=0)}" type="button" class="btn btn-primary">Add User</a>
+                    </div>
+                </td>
+                <td align="right">
+                    User: <span sec:authentication="principal.username"></span>
+                    Roles: <span sec:authentication="principal.authorities"></span>
+                </td>
+                <td align="right">
+                    <form th:action="@{/logout}" method="POST">
+                        <input type="submit" value="Logout" class="btn btn-outline-primary ml-sm-2" />
+                    </form>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="container">
+        <table class="table table-bordered">
+            <thead class="thead-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <div sec:authorize="hasRole('ADMIN')">
+                        <th>Action</th>
+                    </div>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="temp : ${users}">
+                    <td th:text="${temp.id}"/>
+                    <td th:text="${temp.username}"/>
+                    <td th:text="${temp.email}"/>
+                    <div sec:authorize="hasRole('ADMIN')">
+                        <td>
+                            <a type="button" th:href="@{/users/edit(id=${temp.id})}" class="btn btn-warning">Edit</a>
+                            <a type="button" th:href="@{/users/delete(id=${temp.id})}" class="btn btn-danger"
+                                onclick="if(!(confirm('Are you sure?'))) return false">
+                                Delete
+                            </a>
+                        </td>
+                    </div>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <hr>
+
+    <div class="container">
+        <a th:href="@{/hello}">Checkout the server time</a>
+    </div>
+
+</body>
+</html>

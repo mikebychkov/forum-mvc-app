@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit user</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <h2>Edit user</h2>
+    <form th:action="@{/users/save}" th:object="${user}" method="POST">
+        <input type="hidden" id="id" th:field="*{id}">
+        <div class="form-group">
+            <label for="username">Username:</label>
+            <input type="text" id="username" placeholder="Enter username" th:field="*{username}" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="text" id="email" placeholder="Enter email" th:field="*{email}" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="password">New password:</label>
+            <input type="text" id="password" placeholder="Enter NEW password" th:field="*{password}" class="form-control">
+        </div>
+        <div class="form-group">
+            <label for="roles">Roles:</label>
+            <input type="text" id="roles" placeholder="Enter roles" th:field="*{roles}" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+    <hr>
+    <a th:href="@{/}">Home page</a>
+</div>
+</body>
+</html>
