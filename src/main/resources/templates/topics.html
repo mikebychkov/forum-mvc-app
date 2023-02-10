@@ -3,7 +3,7 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
-    <title>FORUM:Users</title>
+    <title>FORUM:Topics</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.3/dist/jquery.slim.min.js"></script>
@@ -15,10 +15,10 @@
     <nav class="navbar navbar-expand-sm bg-dark navbar-dark fixed-top">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/topics/list}">Topics</a>
+                <a class="nav-link active" th:href="@{/topics/list}">Topics</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" th:href="@{/users/list}">Users</a>
+                <a class="nav-link" th:href="@{/users/list}">Users</a>
             </li>
         </ul>
         <ul class="navbar-nav">
@@ -34,8 +34,8 @@
         <table width="100%">
             <tr>
                 <td align="left">
-                    <div sec:authorize="hasRole('ADMIN')">
-                        <a th:href="@{/users/edit(id=0)}" type="button" class="btn btn-primary">Add User</a>
+                    <div>
+                        <a th:href="@{/topics/new}" type="button" class="btn btn-primary">Add Topic</a>
                     </div>
                 </td>
                 <td align="right">
@@ -51,22 +51,24 @@
             <thead class="thead-dark">
                 <tr>
                     <th>ID</th>
-                    <th>Username</th>
-                    <th>Email</th>
+                    <th>Name</th>
+                    <th>Author</th>
+                    <th>Archive</th>
                     <div sec:authorize="hasRole('ADMIN')">
                         <th>Action</th>
                     </div>
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="temp : ${users}">
+                <tr th:each="temp : ${topics}">
                     <td th:text="${temp.id}"/>
-                    <td th:text="${temp.username}"/>
-                    <td th:text="${temp.email}"/>
+                    <td th:text="${temp.name}"/>
+                    <td th:text="${temp.author.username}"/>
+                    <td th:text="${temp.archive}"/>
                     <div sec:authorize="hasRole('ADMIN')">
                         <td>
-                            <a type="button" th:href="@{/users/edit(id=${temp.id})}" class="btn btn-warning">Edit</a>
-                            <a type="button" th:href="@{/users/delete(id=${temp.id})}" class="btn btn-danger"
+                            <a type="button" th:href="@{/topics/edit(id=${temp.id})}" class="btn btn-warning">Edit</a>
+                            <a type="button" th:href="@{/topics/delete(id=${temp.id})}" class="btn btn-danger"
                                 onclick="if(!(confirm('Are you sure?'))) return false">
                                 Delete
                             </a>

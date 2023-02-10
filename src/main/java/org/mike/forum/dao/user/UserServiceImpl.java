@@ -1,4 +1,4 @@
-package org.mike.forum.mongo;
+package org.mike.forum.dao.user;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
