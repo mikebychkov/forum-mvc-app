@@ -12,8 +12,8 @@ Ready features:
 - Topics and messages
 
 Upcoming updates:
-- Pagination
 - Spring-Boot Testing
+- Pagination
 
 ![ScreenShot](img/login.png)
 ![ScreenShot](img/register.png)
