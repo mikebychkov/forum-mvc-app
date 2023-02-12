@@ -6,6 +6,7 @@ import org.springframework.data.domain.Pageable;
 public interface MessageService {
 
     Message save(Message message);
+    Message save(MessageDTO messageDTO);
     Page<Message> findAllByTopicId(String topicId, Pageable pageable);
     Message findById(String id);
     void deleteById(String id);

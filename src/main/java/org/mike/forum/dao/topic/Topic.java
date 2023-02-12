@@ -12,12 +12,9 @@ public class Topic {
 
     @Id
     private String id;
-
     @DBRef
     private User author;
-
     private String name;
-
     private Boolean archive;
 
     public TopicDTO toDTO() {

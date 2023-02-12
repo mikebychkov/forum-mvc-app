@@ -7,8 +7,6 @@ import org.mike.forum.dao.topic.TopicDTO;
 import org.mike.forum.dao.topic.TopicService;
 import org.mike.forum.dao.user.User;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.annotation.CurrentSecurityContext;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +22,7 @@ public class TopicController {
     @GetMapping("/list")
     public String index(Model model) {
 
+        // TODO: implement pagination
         Pageable pageable = Pageable.ofSize(10);
 
         model.addAttribute("topics", topicService.findAll(pageable));

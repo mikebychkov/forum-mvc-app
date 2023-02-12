@@ -16,10 +16,10 @@
         <a class="navbar-brand" href="#">TINY FORUM</a>
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" th:href="@{/topics/list}">Topics</a>
+                <a class="nav-link active" th:href="@{/topics/list}">Topics</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link active" th:href="@{/users/list}">Users</a>
+                <a class="nav-link" th:href="@{/users/list}">Users</a>
             </li>
         </ul>
         <ul class="navbar-nav">
@@ -35,9 +35,12 @@
         <table width="100%">
             <tr>
                 <td align="left">
-                    <div sec:authorize="hasRole('ADMIN')">
-                        <a th:href="@{/users/edit(id=0)}" type="button" class="btn btn-primary">Add User</a>
+                    <div>
+                        <a th:href="@{/messages/new(topicId=${topic.id})}" type="button" class="btn btn-primary">Add Message</a>
                     </div>
+                </td>
+                <td align="left">
+                    <b th:text="${topic.name}"/>
                 </td>
                 <td align="right">
                     User: <span sec:authentication="principal.username"></span>
@@ -54,24 +57,26 @@
                     <div sec:authorize="hasRole('ADMIN')">
                         <th>ID</th>
                     </div>
-                    <th>Username</th>
-                    <th>Email</th>
+                    <th>Text</th>
+                    <th>Author</th>
+                    <th>Edited</th>
                     <div sec:authorize="hasRole('ADMIN')">
                         <th>Action</th>
                     </div>
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="temp : ${users}">
+                <tr th:each="temp : ${messages}">
                     <div sec:authorize="hasRole('ADMIN')">
                         <td th:text="${temp.id}"/>
                     </div>
-                    <td th:text="${temp.username}"/>
-                    <td th:text="${temp.email}"/>
+                    <td th:text="${temp.text}"/>
+                    <td th:text="${temp.author.username}"/>
+                    <td th:text="${temp.edited}"/>
                     <div sec:authorize="hasRole('ADMIN')">
                         <td>
-                            <a type="button" th:href="@{/users/edit(id=${temp.id})}" class="btn btn-warning">Edit</a>
-                            <a type="button" th:href="@{/users/delete(id=${temp.id})}" class="btn btn-danger"
+                            <a type="button" th:href="@{/messages/edit(id=${temp.id})}" class="btn btn-warning">Edit</a>
+                            <a type="button" th:href="@{/messages/delete(id=${temp.id},topicId=${topic.id})}" class="btn btn-danger"
                                 onclick="if(!(confirm('Are you sure?'))) return false">
                                 Delete
                             </a>

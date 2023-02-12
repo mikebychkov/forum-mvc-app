@@ -12,11 +12,8 @@ public class TopicDTO {
 
     private String id;
     private String authorId;
-
     private String authorName;
-
     private String name;
-
     private Boolean archive;
 
     public TopicDTO(Topic topic) {
