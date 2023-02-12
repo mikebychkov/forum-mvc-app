@@ -5,10 +5,10 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class ForumBackendApplication implements CommandLineRunner {
+public class ForumApplication implements CommandLineRunner {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ForumBackendApplication.class, args);
+		SpringApplication.run(ForumApplication.class, args);
 	}
 
 	@Override

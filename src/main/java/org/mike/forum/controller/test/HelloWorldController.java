@@ -1,4 +1,4 @@
-package org.mike.forum.controller;
+package org.mike.forum.controller.test;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
