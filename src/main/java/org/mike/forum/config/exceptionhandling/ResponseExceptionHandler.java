@@ -1,5 +1,6 @@
 package org.mike.forum.config.exceptionhandling;
 
+import org.mike.forum.config.exceptionhandling.exceptions.UserNotFound;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
@@ -20,6 +21,16 @@ public class ResponseExceptionHandler {
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
     */
+
+    @ExceptionHandler
+    public ResponseEntity<ErrorResponse> handleException(UserNotFound ex) {
+
+        ex.printStackTrace();
+
+        ErrorResponse error = new ErrorResponse(ex);
+
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    }
 
     @ExceptionHandler
     public String handleException(Exception ex, Model model) {

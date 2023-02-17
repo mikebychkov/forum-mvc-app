@@ -82,4 +82,8 @@ public class User implements UserDetails {
             }
         };
     }
+
+    public UserDTO toDTO() {
+        return new UserDTO(this);
+    }
 }

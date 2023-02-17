@@ -1,6 +1,7 @@
 package org.mike.forum.dao.user;
 
 import lombok.RequiredArgsConstructor;
+import org.mike.forum.config.exceptionhandling.exceptions.UserNotFound;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +16,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findById(String id) {
-        return userRepository.findById(id).orElseThrow();
+        return userRepository.findById(id).orElseThrow(UserNotFound::new);
     }
 
     @Override
@@ -25,11 +26,12 @@ public class UserServiceImpl implements UserService {
                 .map(u -> {
                     u.setPassword(null);
                     return u;
-                }).orElseThrow();    }
+                }).orElseThrow(UserNotFound::new);
+    }
 
     @Override
     public User findByUsername(String username) {
-        return userRepository.findByUsername(username).orElseThrow();
+        return userRepository.findByUsername(username).orElseThrow(UserNotFound::new);
     }
 
     @Override

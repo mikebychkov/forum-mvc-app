@@ -1,5 +1,6 @@
 package org.mike.forum;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mike.forum.controller.test.HelloService;
 import org.mike.forum.dao.message.MessageService;
@@ -42,6 +43,11 @@ public class MockMvcNoContextTest {
     private TopicService topicService;
     @MockBean
     private HelloService helloService;
+
+    @BeforeEach
+    public void beforeEach() {
+        when(helloService.sayHello()).thenReturn("HELLO TINY FORUM!");
+    }
 
     @Test
     public void shouldReturnDefaultMessage() throws Exception {
