@@ -30,7 +30,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         //http.authorizeRequests().and().formLogin().permitAll();
 
-        http.authorizeRequests()
+        http.csrf().and().cors().and().authorizeRequests()
 //                .antMatchers("/users/edit*").hasRole("ADMIN")
 //                .antMatchers("/users/edit/**").hasRole("ADMIN")
 //                .antMatchers("/users/save").hasRole("ADMIN")

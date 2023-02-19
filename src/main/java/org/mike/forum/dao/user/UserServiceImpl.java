@@ -1,14 +1,17 @@
 package org.mike.forum.dao.user;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.mike.forum.config.exceptionhandling.exceptions.UserNotFound;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Log4j2
 public class UserServiceImpl implements UserService {
 
     private final UserRepository userRepository;
@@ -20,13 +23,13 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findByIdForUpdate(String id) {
+    public User findByIdOrNew(String id) {
         return userRepository.findById(id)
                 .map(User::new)
                 .map(u -> {
                     u.setPassword(null);
                     return u;
-                }).orElseThrow(UserNotFound::new);
+                }).orElse(new User());
     }
 
     @Override
@@ -42,14 +45,29 @@ public class UserServiceImpl implements UserService {
     @Override
     public User save(User user) {
 
-        if (user.getId() != null && user.getPassword().isBlank()) {
+        String id = Optional.ofNullable(user.getId()).filter(s -> !s.isBlank()).orElse(null);
+
+        if (id != null && user.getPassword().isBlank()) {
             User dbuser = findById(user.getId());
             user.setPassword(dbuser.getPassword());
         } else {
+            user.setId(null);
             user.setPassword(passwordEncoder.encode(user.getPassword()));
         }
 
         return userRepository.save(user);
+    }
+
+    @Override
+    public User save(UserDTO dto) {
+
+        User newUser = User.builder()
+                .username(dto.getUsername())
+                .email(dto.getEmail())
+                .password(dto.getPassword())
+                .build();
+
+        return save(newUser);
     }
 
     @Override
