@@ -101,7 +101,7 @@ public class IntegrationTest {
                 .password("newuserpassword")
                 .build();
 
-        String requestBody = objectMapper.convertValue(userToCreate, JsonNode.class).toString();
+        String requestBody = objectMapper.convertValue(userToCreate, JsonNode.class).toString(); // Same thing: objectMapper.writeValueAsString(userToCreate)
 
         mockMvc.perform(post("/api/users")
                         .with(SecurityMockMvcRequestPostProcessors.csrf())
