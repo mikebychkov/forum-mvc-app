@@ -1,0 +1,5 @@
+- name: DEPLOY FORUM APP
+  hosts: all
+  tasks:
+  - name: TEST PING
+    ping:
