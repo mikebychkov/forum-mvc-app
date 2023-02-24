@@ -4,6 +4,7 @@
 /pg_data/
 /mongodb_data/
 /vagrant/.vagrant/
+/vagrant/*.log
 
 HELP.md
 target/
