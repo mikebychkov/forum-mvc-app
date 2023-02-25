@@ -3,13 +3,19 @@
   connection: local
   tasks:
   - name: PULL REPO
-    command: 'git clone https://github.com/mikebychkov/forum-mvc-app'
+    shell: 'git clone https://github.com/mikebychkov/forum-mvc-app'
+
+  - name: START TEST MONGO
+    shell: 'cd ~/forum-mvc-app/ && docker-compose -f test-compose.yml up -d'
 
   - name: BUILD JAR WITH TESTS
-    command: '~/forum-mvc-app/mvnw -f ~/forum-mvc-app/ package'
-
-  - name: CLEAN UP
-    command: 'mv -rf ~/forum-mvc-app/'
+    shell: 'cd ~/forum-mvc-app/ && ./mvnw package'
 
   # NEW IMAGE CREATION
   # DEPLOY TO K8S
+
+  - name: STOP TEST MONGO
+    shell: 'cd ~/forum-mvc-app/ && docker-compose -f test-compose.yml down'
+
+  - name: CLEAN UP
+    shell: 'rm -rf ~/forum-mvc-app/'
