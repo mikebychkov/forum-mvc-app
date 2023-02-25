@@ -6,7 +6,7 @@
     command: 'git clone https://github.com/mikebychkov/forum-mvc-app'
 
   - name: BUILD JAR WITH TESTS
-    command: 'mvn -f ~/forum-mvc-app/ package'
+    command: '~/forum-mvc-app/mvnw -f ~/forum-mvc-app/ package'
 
   - name: CLEAN UP
     command: 'mv -rf ~/forum-mvc-app/'
