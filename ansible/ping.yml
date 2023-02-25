@@ -1,0 +1,5 @@
+- name: PING FORUM APP HOSTS
+  hosts: all
+  tasks:
+  - name: TEST PING
+    ping:

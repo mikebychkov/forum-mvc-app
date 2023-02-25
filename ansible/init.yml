@@ -1,0 +1,37 @@
+- name: UPDATE HOSTS
+  hosts: database, gateway
+  become: true
+  tasks:
+  - name: APT UPDATE
+    apt:
+      update_cache: yes
+  - name: APT UPGRADE
+    apt:
+      upgrade: dist
+
+- name: DB SERVER INIT
+  hosts: database
+  become: true
+  tasks:
+  - name: INSTALL DOCKER
+    apt:
+      name: docker
+      state: present
+  - name: INSTALL DOCKER-COMPOSE
+    apt:
+      name: docker-compose
+      state: present
+  - name: ADD USER TO DOCKER GROUP
+    user:
+      name: vagrant
+      groups: docker
+      append: yes
+
+- name: GATEWAY SERVER INIT
+  hosts: gateway
+  become: true
+  tasks:
+  - name: INSTALL NGINX
+    apt:
+      name: nginx
+      state: present

@@ -1,5 +1,15 @@
 - name: DEPLOY FORUM APP
-  hosts: all
+  hosts: localhost
+  connection: local
   tasks:
-  - name: TEST PING
-    ping:
+  - name: PULL REPO
+    command: 'git clone https://github.com/mikebychkov/forum-mvc-app'
+
+  - name: BUILD JAR WITH TESTS
+    command: 'mvn -f ~/forum-mvc-app/ package'
+
+  - name: CLEAN UP
+    command: 'mv -rf ~/forum-mvc-app/'
+
+  # NEW IMAGE CREATION
+  # DEPLOY TO K8S
