@@ -1,0 +1,17 @@
+version: '2.1'
+services:
+  registry:
+    container_name: my-local-registry
+    restart: always
+    image: registry:2
+    ports:
+      - 443:443
+      - 5000:5000
+    environment:
+      REGISTRY_HTTP_ADDR: 0.0.0.0:443
+      REGISTRY_HTTP_TLS_CERTIFICATE: /certs/domain.crt
+      REGISTRY_HTTP_TLS_KEY: /certs/domain.key
+    volumes:
+      - ./certs:/certs
+      - ./certs/htpasswd.local.registry:/etc/docker/registry/htpasswd.local.registry
+      - ./config.yml:/etc/docker/registry/config.yml

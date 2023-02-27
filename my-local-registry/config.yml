@@ -1,0 +1,13 @@
+version: 0.1
+http:
+  secret: AwesomeSecret123
+  host: https://my.local.registry
+auth:
+  htpasswd:
+    realm: basic-realm
+    path: /etc/docker/registry/htpasswd.local.registry
+storage:
+  filesystem:
+    rootdirectory: /var/lib/registry
+    maxthreads: 100
+

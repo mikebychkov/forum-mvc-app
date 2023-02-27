@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    run: forum-mvc
+  name: forum-mvc
+spec:
+  containers:
+  - image: my.local.registry/forum:1
+    name: forum-mvc
+  imagePullSecrets:
+  - name: reg-cred

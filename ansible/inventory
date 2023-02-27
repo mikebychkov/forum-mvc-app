@@ -1,5 +1,12 @@
 kubemaster ansible_host=192.168.56.2 ansible_connection=ssh ansible_user=vagrant
+kubenode01 ansible_host=192.168.56.11 ansible_connection=ssh ansible_user=vagrant
+kubenode02 ansible_host=192.168.56.12 ansible_connection=ssh ansible_user=vagrant
 
 database ansible_host=192.168.56.21 ansible_connection=ssh ansible_user=vagrant
 
 gateway ansible_host=192.168.56.31 ansible_connection=ssh ansible_user=vagrant
+
+[k8s]
+kubemaster
+kubenode01
+kubenode02
