@@ -5,6 +5,7 @@
 /mongodb_data/
 /vagrant/.vagrant/
 /vagrant/*.log
+/my-local-registry/certs
 
 HELP.md
 target/
