@@ -1,6 +1,9 @@
-- name: DEPLOY FORUM APP
+- name: BUILD FORUM APP
   hosts: localhost
   connection: local
+  vars:
+    build_datetime: '{{ ansible_date_time.iso8601_basic_short }}'
+
   tasks:
   - name: PULL REPO
     shell: 'git clone https://github.com/mikebychkov/forum-mvc-app'
@@ -11,11 +14,35 @@
   - name: BUILD JAR WITH TESTS
     shell: 'cd ~/forum-mvc-app/ && ./mvnw package'
 
-  # NEW IMAGE CREATION
-  # DEPLOY TO K8S
+  - name: AUTHORIZE TO PRIVATE REGISTRY
+    docker.docker_login:
+      username: mike-dev
+      password: SecureSecrets
+      registry_url: my.local.registry
+
+  - name: BUILD NEW IMAGE
+    shell: 'cd ~/forum-mvc-app/
+            && docker build -t my.local.registry/forum:{{ build_datetime }}
+            && docker push my.local.registry/forum:{{ build_datetime }}'
+
+  - name: SAVE NEW IMAGE TAG
+    set_fact:
+      build_image_tag: '{{ build_datetime }}'
 
   - name: STOP TEST MONGO
     shell: 'cd ~/forum-mvc-app/ && docker-compose -f test-compose.yml down'
 
   - name: CLEAN UP
     shell: 'rm -rf ~/forum-mvc-app/'
+
+- name: DEPLOY FORUM APP
+  hosts: kubemaster
+  vars:
+    build_image_tag: '{{ hostvars["localhost"]["build_image_tag"] }}'
+
+  tasks:
+    - name: UPDATE IMAGE TAG
+      shell: 'sed -i "s/my.local.registry\/forum:[0-9T]*/my.local.registry\/forum:{{ build_image_tag }}/g" ~/k8s/forum-deployment.yml'
+
+    - name: APPLY CHANGES
+      shell: 'kubectl apply -f ~/k8s/forum-deployment.yml'

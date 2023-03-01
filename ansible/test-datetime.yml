@@ -1,0 +1,37 @@
+- name: DATETIME TEST
+  hosts: localhost
+  connection: local
+  vars:
+    build_datetime: '{{ ansible_date_time.iso8601_basic_short }}'
+
+  tasks:
+  - name: TEST DATETIME
+    debug:
+      msg: 'THIS IS HOW IT LOOKS LIKE IN ANSIBLE: {{ build_datetime }}'
+
+  - name: SLEEP FOR 2 SECONDS
+    pause:
+      seconds: 2
+
+  - name: TEST IT DOESNT CHANGED
+    debug:
+      msg: 'THIS IS HOW IT LOOKS LIKE IN ANSIBLE: {{ build_datetime }}'
+
+  - name: SAVE THAT VALUE
+    set_fact:
+      my_build_date: '{{ build_datetime }}'
+
+- name: TEST SET-FACT
+  hosts: automation
+  tasks:
+    - debug:
+        msg: 'THAT WHAT GOT: {{ hostvars["localhost"]["my_build_date"] }}'
+
+- name: UPDATE IMAGE TAG
+  hosts: localhost
+  connection: local
+  vars:
+    my_build_date: '{{ hostvars["localhost"]["my_build_date"] }}'
+  tasks:
+    - name: UPDATE THE YAML
+      shell: 'sed -i "s/my.local.registry\/forum:[0-9T]*/my.local.registry\/forum:{{ my_build_date }}/g" ~/Projects/forum/ansible/test-deployment.yml'

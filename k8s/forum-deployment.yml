@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: forum-mvc-deployment
+spec:
+  selector:
+    matchLabels:
+      app: forum-mvc
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: forum-mvc
+      name: forum-mvc
+    spec:
+      containers:
+      - name: forum-mvc
+        image: my.local.registry/forum:1        
+        env:
+        - name: SPRING_PROFILES_ACTIVE
+          value: prod
+      imagePullSecrets:
+      - name: reg-cred
