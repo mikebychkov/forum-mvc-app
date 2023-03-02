@@ -15,12 +15,14 @@ NODE_IP_START = 10
 DB_IP_START = 20
 GATEWAY_IP_START = 30
 AUTOMATION_IP_START = 40
+GIT_IP_START = 50
 
 MASTER_FORWARD_PORT = 2710
 WORKER_FORWARD_PORT = 2720
 DB_FORWARD_PORT = 2730
 GATEWAY_FORWARD_PORT = 2740
 AUTOMATION_FORWARD_PORT = 2750
+GIT_FORWARD_PORT = 2760
 
 
 # All Vagrant configuration is done below. The "2" in Vagrant.configure
@@ -181,6 +183,24 @@ Vagrant.configure("2") do |config|
         # Run post_config script
         node.vm.provision "shell", inline: $post_config
     end
+  end
+
+  config.vm.define "git-server" do |node|
+      node.vm.provider "virtualbox" do |vb|
+          vb.name = "git-server"
+          vb.memory = 8196
+          vb.cpus = 2
+      end
+      node.vm.hostname = "git-server"
+      node.vm.network :private_network, ip: IP_NW + "#{GIT_IP_START + 1}"
+              node.vm.network "forwarded_port", guest: 22, host: "#{GIT_FORWARD_PORT + 1}"
+
+      node.vm.provision "setup-hosts", :type => "shell", :path => "ubuntu/vagrant/setup-hosts.sh" do |s|
+        s.args = ["enp0s8"]
+      end
+
+      node.vm.provision "setup-dns", type: "shell", :path => "ubuntu/update-dns.sh"
+      node.vm.provision "setup-ssh", type: "shell", :path => "ubuntu/update-ssh.sh"
   end
 
 end

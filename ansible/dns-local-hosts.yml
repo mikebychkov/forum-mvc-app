@@ -1,0 +1,14 @@
+- name: UPDATE DNS
+  hosts: all
+  become: yes
+  tasks:
+  - name: PUT DOCKER REGISTRY HOSTS
+    lineinfile:
+      path: /etc/hosts
+      line: '192.168.56.21 my.local.registry'
+      state: present
+  - name: PUT GIT SERVER IN HOSTS
+    lineinfile:
+      path: /etc/hosts
+      line: '192.168.56.51 my.local.gitlab'
+      state: present

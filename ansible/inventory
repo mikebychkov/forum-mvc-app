@@ -8,6 +8,8 @@ gateway ansible_host=192.168.56.31 ansible_connection=ssh ansible_user=vagrant
 
 automation ansible_host=192.168.56.41 ansible_connection=ssh ansible_user=vagrant
 
+git-server ansible_host=192.168.56.51 ansible_connection=ssh ansible_user=vagrant
+
 [k8s]
 kubemaster
 kubenode01

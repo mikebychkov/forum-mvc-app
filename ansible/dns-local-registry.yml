@@ -1,9 +1,0 @@
-- name: UPDATE DNS
-  hosts: all
-  become: yes
-  tasks:
-  - name: PUT LINE IN HOSTS
-    lineinfile:
-      path: /etc/hosts
-      line: '192.168.56.21 my.local.registry'
-      state: present

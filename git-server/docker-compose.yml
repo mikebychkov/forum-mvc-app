@@ -1,0 +1,14 @@
+# https://docs.gitlab.com/ee/install/docker.html
+version: '3.3'
+services:
+  web:
+    image: 'gitlab/gitlab-ee:latest'
+    restart: always
+    hostname: 'my.local.gitlab'
+    ports:
+      - '80:80'
+    volumes:
+      - './config:/etc/gitlab'
+      - './logs:/var/log/gitlab'
+      - './data:/var/opt/gitlab'
+    shm_size: '256m'

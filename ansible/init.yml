@@ -1,5 +1,5 @@
 - name: UPDATE HOSTS
-  hosts: database, gateway
+  hosts: database, gateway, git-server
   become: true
   tasks:
   - name: APT UPDATE
@@ -10,7 +10,7 @@
       upgrade: dist
 
 - name: DB SERVER INIT
-  hosts: database
+  hosts: database, git-server
   become: true
   tasks:
   - name: INSTALL DOCKER
@@ -35,3 +35,4 @@
     apt:
       name: nginx
       state: present
+
