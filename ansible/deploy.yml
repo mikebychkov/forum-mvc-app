@@ -16,14 +16,15 @@
     shell: 'cd ~/forum-mvc-app/ && ./mvnw package'
 
   - name: AUTHORIZE TO PRIVATE REGISTRY
-    docker.docker_login:
-      username: mike-dev
-      password: SecureSecrets
-      registry_url: my.local.registry
+    shell: 'docker login my.local.registry -u mike-dev -p SecureSecrets'
+#    community.docker.docker_login:
+#      username: mike-dev
+#      password: SecureSecrets
+#      registry_url: my.local.registry
 
   - name: BUILD NEW IMAGE
     shell: 'cd ~/forum-mvc-app/
-            && docker build -t my.local.registry/forum:{{ build_datetime }}
+            && docker build -t my.local.registry/forum:{{ build_datetime }} .
             && docker push my.local.registry/forum:{{ build_datetime }}'
 
   - name: SAVE NEW IMAGE TAG
