@@ -40,6 +40,16 @@
   - name: CLEAN UP IMAGES
     shell: 'docker rmi $(docker images my.local.registry/forum -q)'
 
+  # - mail:
+  #     host: smtp.gmail.com
+  #     port: 587
+  #     username: username@gmail.com
+  #     password: mysecret
+  #     to: John Smith <john.smith@example.com>
+  #     subject: Ansible-report
+  #     body: 'System {{ ansible_hostname }} has been successfully provisioned.'
+  #   ignore_errors: yes
+
 - name: DEPLOY FORUM APP
   hosts: kubemaster
   vars:
