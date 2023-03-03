@@ -37,6 +37,9 @@
   - name: CLEAN UP
     shell: 'rm -rf ~/forum-mvc-app/'
 
+  - name: CLEAN UP IMAGES
+    shell: 'docker rmi $(docker images my.local.registry/forum -q)'
+
 - name: DEPLOY FORUM APP
   hosts: kubemaster
   vars:
