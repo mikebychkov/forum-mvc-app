@@ -1,0 +1,11 @@
+version: '2.1'
+services:
+  automation_server:
+    container_name: automation-server
+    image: openjdk:17-jdk
+    volumes:
+      - ./target/automation-1.jar:/app/automation.jar
+    working_dir: /app
+    ports:
+      - '9090:9090'
+    command: java -jar /app/automation.jar

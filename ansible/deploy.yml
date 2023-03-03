@@ -6,7 +6,8 @@
 
   tasks:
   - name: PULL REPO
-    shell: 'git clone https://github.com/mikebychkov/forum-mvc-app'
+#    shell: 'git clone https://github.com/mikebychkov/forum-mvc-app'
+    shell: 'git clone http://mike:Qwas1234@my.local.gitlab/forum/forum-mvc-app'
 
   - name: START TEST MONGO
     shell: 'cd ~/forum-mvc-app/ && docker-compose -f test-compose.yml up -d'

@@ -1,5 +1,5 @@
 - name: UPDATE DNS
-  hosts: all
+  hosts: all, localhost
   become: yes
   tasks:
   - name: PUT DOCKER REGISTRY HOSTS
@@ -11,4 +11,19 @@
     lineinfile:
       path: /etc/hosts
       line: '192.168.56.51 my.local.gitlab'
+      state: present
+  - name: PUT DATABASE SERVER IN HOSTS
+    lineinfile:
+      path: /etc/hosts
+      line: '192.168.56.21 my.local.mongo'
+      state: present
+  - name: PUT AUTOMATION SERVER IN HOSTS
+    lineinfile:
+      path: /etc/hosts
+      line: '192.168.56.41 my.local.automation'
+      state: present
+  - name: PUT AUTOMATION SERVER IN HOSTS WITH PROTOCOL (FOR GITLAB)
+    lineinfile:
+      path: /etc/hosts
+      line: '192.168.56.41 http://my.local.automation'
       state: present

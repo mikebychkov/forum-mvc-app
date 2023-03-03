@@ -1,0 +1,10 @@
+spring:
+  data:
+    mongodb:
+      uri: 'mongodb://root:rootpassword@my.local.mongo:27017/admin'
+      username: root
+      password: rootpassword
+      database: admin
+      host: my.local.mongo
+      port: 27017
+      auto-index-creation: true

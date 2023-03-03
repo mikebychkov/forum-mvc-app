@@ -1,0 +1,14 @@
+[Unit]
+Description=Local Automation Server
+After=network.target
+StartLimitIntervalSec=60s
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=2
+User=vagrant
+ExecStart=/usr/bin/java -jar /home/vagrant/my-local-automation/target/automation-1.jar
+
+[Install]
+WantedBy=multi-user.target
