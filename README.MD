@@ -20,7 +20,6 @@ Ready features:
 - Continuous Deployment with Ansible
 
 Upcoming updates:
-- Complete CI/CD with local Git server and Jenkins to start Ansible deployment 
 - Pagination
 
 ![ScreenShot](img/login.png)
@@ -28,5 +27,3 @@ Upcoming updates:
 ![ScreenShot](img/admin-topics.png)
 ![ScreenShot](img/user-topics.png)
 ![ScreenShot](img/topic.png)
-
-1
